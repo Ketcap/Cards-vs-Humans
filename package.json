@@ -16,9 +16,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "now-build": "react-scripts build && mv build dist"
+    "now-build": "npm run build && mv build dist"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -37,6 +35,5 @@
     "@storybook/react": "^4.1.4",
     "babel-loader": "^8.0.4",
     "gh-pages": "^2.0.1"
-  },
-  "homepage": "https://ketcap.github.io/Cards-vs-Humans/"
+  }
 }
