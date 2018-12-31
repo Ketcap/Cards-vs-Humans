@@ -27,10 +27,6 @@ export default class extends React.Component {
     return (
       <Container>
         <StartButton start={start} onClick={this.start} />
-        {/* <SubMenu>
-          <MenuItem>Settings</MenuItem>
-          <MenuItem>Help</MenuItem>
-        </SubMenu> */}
       </Container>
     )
   }
