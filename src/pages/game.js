@@ -70,7 +70,7 @@ class Game extends React.Component {
     }));
   }
   play = () => {
-    const { pickedCards, black_card } = this.state;
+    const { pickedCards, black_card, player_hand } = this.state;
     const active = pickedCards.length === black_card.val.pick;
     if (!active)
       return;
@@ -79,13 +79,21 @@ class Game extends React.Component {
       usedBlack: [...usedBlack, black_card.index],
       usedWhite: [...usedWhite, ...pickedCards],
     }), () => {
+      const { fn: { historyUpdate } } = this.props.context;
+      const turn = {
+        black_card, white_cards: [...pickedCards.map(e => {
+          const index = player_hand.map(e => e.index).indexOf(e);
+          return player_hand[index];
+        })]
+      }
+      historyUpdate(turn);
       this.generateNew();
     })
   }
   generateNew = () => {
     const { fn: { getBlackCard, getWhiteCard } } = this.props.context;
     const { pickedCards, usedWhite, usedBlack, player_hand } = this.state;
-    const newCards = Array(pickedCards.length).fill('').map(() => getWhiteCard(usedWhite));
+    const newCards = [...new Array(pickedCards.length).fill('').map(() => getWhiteCard(usedWhite))];
     const question = getBlackCard(usedBlack);
     this.setState({
       player_hand: [...shuffle([...player_hand.filter(e => pickedCards.indexOf(e.index) < 0), ...newCards])],

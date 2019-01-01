@@ -6,11 +6,18 @@ import { linkTo } from '@storybook/addon-links';
 
 import { Welcome } from '@storybook/react/demo';
 
+import { Context, CAH } from '../context';
 import Card from '../components/card';
 import StartButton from '../components/game-start';
 
 import { blackCards, whiteCards } from '../lib/cah.json';
-const randomValue = (arr) => (arr[Math.floor(Math.random() * arr.length)])
+const randomPick = (arr) => {
+  const index = Math.floor(Math.random() * arr.length);
+  return {
+    val: arr[index],
+    index
+  }
+}
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -38,3 +45,31 @@ storiesOf('Button', module)
       <StartButton />
     </div>
   ))
+
+// storiesOf('History', module)
+//   .addDecorator(story => (
+//     <Context>
+//       {story()}
+//     </Context>
+//   ))
+//   .add('Empty List', () => (
+//     <div style={{ width: '375px', height: '812px' }}>
+//       <History />
+//     </div>
+//   ))
+//   .add('Non Empty List', () => {
+//     const history = [...new Array(5).fill('').map(e => {
+//       const question = randomPick(blackCards);
+//       const answer = [...new Array(question.val.pick).fill('').map(e => randomPick(whiteCards))];
+//       return {
+//         black_card: question,
+//         white_cards: answer,
+//         play_date: new Date()
+//       }
+//     })];
+//     return (
+//       <div style={{ width: '375px', height: '812px' }}>
+//         <History history={history} />
+//       </div>
+//     )
+//   })

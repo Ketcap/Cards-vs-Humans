@@ -22,11 +22,17 @@ export default class extends React.Component {
       }, 500);
     });
   }
+  route = (path) => () => this.props.history.push(path);
   render() {
     const { start } = this.state;
     return (
       <Container>
         <StartButton start={start} onClick={this.start} />
+        <SubMenu>
+          <MenuItem onClick={this.route('/history')}>
+            History
+          </MenuItem>
+        </SubMenu>
       </Container>
     )
   }

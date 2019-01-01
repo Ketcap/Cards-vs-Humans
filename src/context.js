@@ -1,5 +1,6 @@
 import React from 'react';
 import { blackCards, whiteCards } from './lib/cah.json';
+import store from 'store'
 
 const CAH = React.createContext();
 
@@ -14,8 +15,9 @@ const randomPick = (arr) => {
 class Context extends React.Component {
   constructor(props) {
     super(props);
+    const history = store.get('history') || [];
     this.state = {
-      history: []
+      history
     };
   }
   getBlackCard = (used = []) => {
@@ -26,6 +28,14 @@ class Context extends React.Component {
     const whites = whiteCards.filter((e, i) => used.indexOf(i) < 0);
     return randomPick(whites);
   }
+  historyUpdate = (turn) => {
+    this.setState(prev => ({
+      history: [{ ...turn, play_date: new Date() }, ...prev.history]
+    }), () => {
+      const { history } = this.state;
+      store.set('history', history);
+    })
+  }
   render() {
     return (
       <CAH.Provider
@@ -33,7 +43,8 @@ class Context extends React.Component {
           ...this.state,
           fn: {
             getBlackCard: this.getBlackCard,
-            getWhiteCard: this.getWhiteCard
+            getWhiteCard: this.getWhiteCard,
+            historyUpdate: this.historyUpdate
           }
         }}
       >

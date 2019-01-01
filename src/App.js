@@ -5,6 +5,7 @@ import { Context } from './context';
 
 import Home from './pages/home';
 import Game from './pages/game';
+import History from './pages/history';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <>
           <Route path={'/'} exact component={Home} />
           <Route path={'/game'} exact component={Game} />
+          <Route path={'/history'} exact component={History} />
         </>
       </Router>
     </Context>
